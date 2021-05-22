@@ -25,8 +25,10 @@ def create_app():
 
     import app.api.auth as auth
     import app.api.link as link
+    import app.api.user as user_req
 
     app.register_blueprint(auth.module)
     app.register_blueprint(link.module)
+    app.register_blueprint(user_req.module)
 
     return app

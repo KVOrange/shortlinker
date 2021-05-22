@@ -17,7 +17,9 @@ class RegData(BaseModel):
     surname: str
     email: EmailStr
 
-
+class LoginData(BaseModel):
+    login: str
+    password: str
 class LoginData(BaseModel):
     login: str
     password: str
@@ -36,10 +38,14 @@ def testlog():
 
 @module.route('/login', methods=['POST'])
 def login():
-    user_login = request.form.get('login')
-    password = request.form.get('password')
-    user = User.query.filter_by(login=user_login).first()
-    if not user or not check_password_hash(user.password, password):
+    # user_login = request.form.get('login')
+    # password = request.form.get('password')
+    try:
+        req_data = LoginData.parse_raw(request.data)
+    except ValueError as error:
+        return get_response(400, False, 'Проверьте правильность запроса', data=error.errors())
+    user = User.query.filter_by(login=req_data.login).first()
+    if not user or not check_password_hash(user.password, req_data.password):
         return get_response(400, False, 'Неверный логин и/или пароль!')
     login_user(user, remember=True)
     return render_template('test.html')
