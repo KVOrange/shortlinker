@@ -1,0 +1,38 @@
+.link_container{
+    border-radius: 20px;
+    border: 1px solid #ECEEEC;
+    width: 100%;
+    margin-top: 2%;
+}
+.link_col{
+    height: 70px;
+    display: flex;
+    align-items: center;
+    
+}
+.link_col h6{
+    width: 100%;
+    text-align: center;
+}
+.link_desc{
+    text-align: center;
+}
+.link_fullinfo{
+    width: 100%;
+    flex-direction: column;
+    /* background-color: aqua; */
+    display: none;
+}
+.row_flex{
+    display: flex;
+    justify-content: space-around;
+}
+.link_menu:hover{
+    background-color: #ECEEEC;
+}
+.row{
+    margin: 0 !important;
+}
+.visual_data{
+    height: 400px !important;
+}
