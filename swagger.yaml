@@ -1,0 +1,313 @@
+openapi: "3.0.2"
+info:
+  title: ShortLinker
+  version: "0.1"
+servers:
+  - url: http://127.0.0.1:5000
+paths:
+  /api/auth/registration:
+    post:
+      tags:
+        - Auth requests
+      summary: Регистрация нового пользователя в системе.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                  description: Логин пользователя.
+                  example: "user_login"
+                email:
+                  type: string
+                  description: Электронная почта пользователя.
+                  example: "some@gmail.com"
+                password:
+                  type: string
+                  description: Пароль пользователя.
+                  example: "somepassword1234"
+                name:
+                  type: string
+                  description: Имя пользователя.
+                  example: "Ivan"
+                surname:
+                  type: string
+                  description: Фамилия пользователя.
+                  example: "Ivanov"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+                  token:
+                    type: string
+                    description: Токен пользователя для доступа к системе.
+                    example: "ssdawwwesjkjjuxuujjdnnfdjhbbdfbnjjdbbfdj"
+  /api/auth/login:
+    post:
+      tags:
+        - Auth requests
+      summary: Авторизоваться в системе и получить токен.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                  description: Логин пользователя.
+                  example: "user_login"
+                password:
+                  type: string
+                  description: Пароль пользователя.
+                  example: "somepassword1234"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+                  token:
+                    type: string
+                    description: Выполнен ли доступ к запросу.
+                    example: "asw12sdfvvsdxz143"
+
+  /api/link/<string:link_name>:
+    get:
+      tags:
+        - Link requests
+      summary: Получить полный url сокращенной ссылки.
+      parameters:
+        - name: Authorization
+          in: header
+          schema: 
+            type: string
+          required: true
+          description: JWT токен пользователя.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+                  url:
+                    type: string
+                    description: Полный url ссылки.
+                    example: "https://www.google.ru"
+    put:
+      tags:
+        - Link requests
+      summary: Обновить информацию о ссылке.
+      parameters:
+        - name: Authorization
+          in: header
+          schema: 
+            type: string
+          required: true
+          description: JWT токен пользователя.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Новое имя ссылки.
+                  example: "newlinkname"
+                type:
+                  type: integer
+                  description: Новый тип ссылки.
+                  example: 1
+                description:
+                  type: string
+                  description: Новое описание для ссылки.
+                  example: "Some text"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+    delete:
+      tags:
+        - Link requests
+      summary: Удалить короткую ссылку у пользователя.
+      parameters:
+        - name: Authorization
+          in: header
+          schema: 
+            type: string
+          required: true
+          description: JWT токен пользователя.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+                
+  /api/link/add:
+    post:
+      tags:
+        - Link requests
+      summary: Создать новую сокращенную ссылку.
+      parameters:
+        - name: Authorization
+          in: header
+          schema: 
+            type: string
+          required: true
+          description: JWT токен пользователя.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: "Адрес полной ссылки"
+                  example: "https://www.google.ru"
+                name:
+                  type: string
+                  description: Кастомное имя для ссылки. Опционально.
+                  example: "linkname"
+                type:
+                  type: integer
+                  description: Тип ссылки. Опционально.
+                  example: 1
+                description:
+                  type: string
+                  description: Описание для ссылки. Опционально.
+                  example: "Some text"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+                  link_name:
+                    type: string
+                    description: Имя созданной короткой ссылки
+                    example: "linkname"
+
+  /api/link/info/statistic:
+    post:
+      tags:
+        - Link requests
+      summary: Создать новую сокращенную ссылку.
+      parameters:
+        - name: Authorization
+          in: header
+          schema: 
+            type: string
+          required: true
+          description: JWT токен пользователя.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Имя ссылки.
+                  example: "newlinkname"
+                datetime_start:
+                  type: string
+                  description: Дата начала истории.
+                  example: "2021-05-21T00:00:00"
+                datetime_end:
+                  type: string
+                  description: Дата окончания истории.
+                  example: "2021-05-21T00:00:00"
+              
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+                  info:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          example: "01.01.2010 00:00:00"
