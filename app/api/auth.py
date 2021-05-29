@@ -1,5 +1,6 @@
+"""Модуль запросов, связанных с аутентификацией."""
+
 from flask import Blueprint, request
-from flask_jwt_extended import current_user, jwt_required
 from pydantic import BaseModel, constr
 from pydantic.networks import EmailStr
 from werkzeug.security import generate_password_hash, check_password_hash
