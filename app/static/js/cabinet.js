@@ -39,16 +39,13 @@ draw_history = function (link_chart, label, today_noize_history) {
 }
 var counter = 0
 $('.open_info').on('click', function () {
-    counter+=1;
     let temp_id = 'chart_'+$(this).attr('id')
-    console.log(temp_id)
     var ctx = document.getElementById(temp_id).getContext('2d'); // 2d context
     $(this)
         .parent()
         .parent()
         .parent()
         .children('.link_fullinfo').slideToggle()
-    draw_history(ctx,['10.02.2020 10:00:00','10.02.2020 10:00:00','10.02.2020 10:00:00'],[counter, 1, 2]);
     
    
 })
@@ -61,13 +58,25 @@ $('.history_info').on('click', function(){
         }),
         body: JSON.stringify({
             name: temp_link_name,
-            datetime_start: '2021-04-21T00:00:00',
-            datetime_end: '2021-05-21T00:00:00'
+            datetime_start: $(this).parent().children('span').children('.datestart').val()+'T00:00:00',
+            datetime_end: $(this).parent().children('span').children('.dateend').val()+'T00:00:00'
         }) 
     }).then(function(response){
         return response.json()
     }).then(function(data){
-        
+        if(data.success){
+            let temp_id = 'chart_'+temp_link_name
+
+            var ctx = document.getElementById(temp_id).getContext('2d'); // 2d context
+            let labels = []
+            let today_noize_history = []
+            let history = data.info;
+            for (let i = 0; i < history.length; i++){
+                labels.push(history[i]['date']);
+                today_noize_history.push(history[i]['count']);
+            }
+            draw_history(ctx,labels,today_noize_history);                        
+        }
     })
 })
 
@@ -75,7 +84,6 @@ $('.update_link').on('click',function(){
     short_link = $(this).parent().parent().children('#short_name')
     description = $(this).parent().parent().children('#description')
     link_type = $("input[name='group1']:checked")
-    console.log(link_type.val())
     link_id = $(this).parent().parent().parent('.row').parent('.link_fullinfo').attr('id')
     fetch('/api/link/'+$(this).attr('id'),{
             method: "PUT",
@@ -99,7 +107,6 @@ $('.update_link').on('click',function(){
         })
 })
 $('.delete_link').on('click',function(){
-    console.log($(this).attr('id'))
     fetch('/api/link/'+$(this).attr('id'),{
         method: "DELETE",
         headers: new Headers({
