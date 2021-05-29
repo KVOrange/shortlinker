@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(100))
     surname = db.Column(db.String(100))
 
-    def get_token(self, expire_time=1):
+    def get_token(self, expire_time=24):
         expire_delta = timedelta(expire_time)
         token = create_access_token(
             identity=self.id,
@@ -58,11 +58,11 @@ class ShortLink(db.Model):
     full_link_id = db.Column(db.Integer, db.ForeignKey('full_link.id'), default=None, nullable=True)
     full_link = db.relationship('FullLink', backref=db.backref('short_links', lazy=True))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), default=None, nullable=True)
-    user = db.relationship('User', backref=db.backref('links', lazy=True))
+    user = db.relationship('User', backref=db.backref('short_links', lazy=True))
     statistics = db.relationship('LinkStatistic', cascade="all,delete", backref=db.backref('short_link'))
 
     @classmethod
-    def get_or_create(cls, user, full_link: FullLink, link_type:int, **kwargs):
+    def get_or_create(cls, user, full_link: FullLink, link_type: int, **kwargs):
         """Вернуть или создать объект с заданными параметрами.
 
         :param user: Владелец ссылки.
