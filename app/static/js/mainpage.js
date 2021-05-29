@@ -31,12 +31,11 @@ $('form.linkcut').submit(function () {
       return response.json()
     }).then(function (data) {
       if (data.success) {
-        console.log(window.location.protocol+'//'+window.location.host)
         $('.linkresult').append(
           `
                   <div class="white-text row link_resulter"
                   ><div class='col s6 truncate'>
-                  <a href="/l/link/`+data.link_name+`">`+window.location.protocol+'//'+window.location.host+`/l/`+data.link_name+`</a>
+                  <a href="/l/`+data.link_name+`">`+window.location.protocol+'//'+window.location.host+`/l/`+data.link_name+`</a>
                   </div>
                   <div class='col s4' style='display:flex; padding: 0 !important; justify-content: space-between;'>
                     <span class='truncate' style="color:#057baa;">`+ $('.link_container').val() + `</span>
@@ -52,14 +51,12 @@ $('form.linkcut').submit(function () {
                 `)
         $('.link_result_error').fadeIn();
       }
-      console.log(data)
     })
   }
   
 
 })
 $('.open-lk').on('click', function () {
-  console.log(getCookie('JWT'))
   if(getCookie('JWT')){
     window.location.href = '/lk'
   }else{
