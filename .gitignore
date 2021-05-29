@@ -3,3 +3,4 @@ app/__pycache__/__init__.cpython-38.pyc
 app/__pycache__/models.cpython-38.pyc
 app/api/__pycache__/link.cpython-38.pyc
 app/api/__pycache__/user.cpython-38.pyc
+app/server.db

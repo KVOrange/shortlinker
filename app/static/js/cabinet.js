@@ -52,6 +52,25 @@ $('.open_info').on('click', function () {
     
    
 })
+$('.history_info').on('click', function(){
+    temp_link_name = $(this).attr('id')
+    fetch('/api/link/info/statistic', {
+        method: "POST",
+        headers: new Headers({
+            'Authorization': getCookie('JWT')
+        }),
+        body: JSON.stringify({
+            name: temp_link_name,
+            datetime_start: '2021-04-21T00:00:00',
+            datetime_end: '2021-05-21T00:00:00'
+        }) 
+    }).then(function(response){
+        return response.json()
+    }).then(function(data){
+        
+    })
+})
+
 $('.update_link').on('click',function(){
     short_link = $(this).parent().parent().children('#short_name')
     description = $(this).parent().parent().children('#description')

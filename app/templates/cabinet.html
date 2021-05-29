@@ -111,7 +111,8 @@
                             </div>
                         </div>
                         <div class="col s6" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <span>Статистика по дате: <input type="date" style="width: 30%;"></span>
+                            <span style="display: flex; justify-content: space-around; width: 90%;">От: <input type="date" class="datestart"> До: <input type="date" class="dateend"></span>
+                            <a style="width: 90%;" id={{link.serv_name}} class="waves-effect waves-light btn red history_info">Посмотреть динамику</a>
                             <canvas class="visual_data" id = "chart_{{link.serv_name}}"></canvas>
                         </div>
                         </div>
