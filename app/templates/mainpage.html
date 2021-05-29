@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/mainpage.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=cc478f66-f723-4a96-8e8b-50526fe12aac"
+        type="text/javascript"></script>
+    <script src="static/js/icon_customImage.js" type="text/javascript"></script>
+    <title>LinkCutter</title>
+</head>
+
+<body>
+    <div class="background-slide"></div>
+    <div class="container-lk">
+        <a href="/authtorization" class="waves-effect waves-light btn-large">Авторизоваться</a>
+    </div>
+    <header>
+        <nav style="background-color: white !important; z-index: 5;">
+            <div class="nav-wrapper" style="padding: 0 10vw;">
+                <a href="/">
+                    <img style="width: auto; height: 100%;" src="https://utk.susu.ru/wp-content/uploads/2020/05/logo.jpg" alt="">
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!-- <li class="active" ><a href="#main"></a></li> -->
+                    <li><a style="color: #425761" href="#price">Цены</a></li>
+                    <li><a style="color: #425761" href="#contacts">Контакты</a></li>
+                    <li><a class="waves-effect waves-light btn open-lk">Личный кабинет</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="main" class="section scrollspy">
+            <div class="design_cube" style="
+            width: 100px;
+            height: 100px;
+            top: 2px;
+            left: 2px;
+            "></div>
+            <div class="design_cube" style="
+            width: 150px;
+            height: 150px;
+            top: 63px;
+            left: 94px;
+            "></div>
+            <div class="design_cube" style="
+            width: 120px;
+            height: 120px;
+            top: 148px;
+            left: -39px;
+            "></div>
+            <div class="design_cube" style="
+            width: 120px;
+            height: 120px;
+            bottom: 0px;
+            right: 0px;
+            "></div>
+            <div class="design_cube" style="
+            width: 90px;
+            height: 90px;
+            bottom: 130px;
+            right: 72px;
+            "></div>
+            
+            <div class="main_contain">
+                <h2 class="white-text" style="text-align: center; margin-top: 0; font-weight: 600;">Сокращение ссылок для рассылки</h2>
+                <p class="white-text" style="font-size: 16px; font-weight: 500; text-align: center;">Для сокращения общих и приватных ссылок, а так же для получения статистики необходимо
+                    <a href="/authtorization">авторизоваться</a>!
+                </p>
+                <div style="width: 100%;">
+                <form class="linkcut" style="position: relative;" onsubmit="return false;">
+                    <input placeholder="Введите адрес ссылки для сокращения" class="browser-default link_container"
+                        type="text">
+                    <button type="submit" href="#" class="waves-effect waves-light btn link_cut">Сократить</button>
+                    
+                </form>
+                <div id="optional-settings">
+                    <div class="row">
+                        <input class="col s8" placeholder="Опциональное сокращение" id="short_name" type="text" class="validate">
+                    </div>
+                    <div class="row">
+                        <input class="col s8" placeholder="Описание ссылки" id="description" type="text" class="validate">
+                    </div>
+                    <div>
+                        <p>
+                          <label>
+                            <input name="group1" value="0" type="radio" checked />
+                            <span>Публичная</span>
+                          </label>
+                        </p>
+                        <p>
+                          <label>
+                            <input name="group1" value=1 type="radio" />
+                            <span>Общая</span>
+                          </label>
+                        </p>
+                        <p>
+                          <label>
+                            <input name="group1" value=2 type="radio"  />
+                            <span>Приватная</span>
+                          </label>
+                        </p>
+                        
+                    </div>
+                    
+                    
+                </div>
+                <div style="width: 100%; display: flex; justify-content: center;">
+                <a class="waves-effect waves-light btn" onclick="$('#optional-settings').slideToggle(); $('#optional-settings').css('display', 'flex')"><i class="material-icons">arrow_drop_down</i></a>
+                </div>    
+            </div>
+                <h6 class="white-text" style="margin: 15px 0;">Используя наш сервис вы принимаете 
+                    <a href="">Политика конфиденциальности</a>
+                    и
+                    <a href="">Пользовательское соглашение</a>
+                </h6>
+                <div class="linkresult"></div>
+            </div>
+        </section>
+        <section id="description" class="section scrollspy">
+            <h2 style="text-align: center;">Как создать короткую ссылку?</h2>
+            <ul style="padding-left: 40px !important;">
+                <li style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div class="white-text number_icon" style="text-align: center; line-height: 50px; font-size: 26px; margin-right: 20px">
+                        1
+                    </div>
+                    <h5 style="font-weight: 300;">Вы можете преобразовывать публичные ссылки</h5>
+                </li>
+                <li style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div class="white-text number_icon" style="text-align: center; line-height: 50px; font-size: 26px; margin-right: 20px">
+                        2
+                    </div>
+                    <h5 style="font-weight: 300;"> <a href="/authtorization">Зарегистрируйтесь</a>, чтобы сокращать ссылки общего и приватного доступа.</h5>
+                </li>
+                <li style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div class="white-text number_icon" style="text-align: center; line-height: 50px; font-size: 26px; margin-right: 20px">
+                        3
+                    </div>
+                    <h5 style="font-weight: 300;">Отслеживайте историю переходов по вашим ссылкам в личном кабинете.</h5>
+                </li>
+                <li style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div class="white-text number_icon" style="text-align: center; line-height: 50px; font-size: 26px; margin-right: 20px">
+                        4
+                    </div>
+                    <h5 style="font-weight: 300;">Создавате человеко-читаемые сокращения для e-mail рассылок.</h5>
+                </li>
+                <li style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div class="white-text number_icon" style="text-align: center; line-height: 50px; font-size: 26px; margin-right: 20px">
+                        5
+                    </div>
+                    <h5 style="font-weight: 300;">Стоимость одной проверки 1 коп.</h5>
+                </li>
+            </ul>
+        </section>
+        <section id="subdescription" class="section scrollspy">
+            <h3 class="white-text" style="text-align: center;">Если у вас более <span style="font-weight: bold;">10000 посещений</span> в месяц</h3>
+            <h4 class="white-text" style="text-align: center;">Свяжитесь с нами +7 (909) 074-67-35</h4>
+        </section>
+        <section id="price" class="section scrollspy">
+            <div class="row">
+                <div class="col s3"><h3 style="font-weight: bold;">Сколько стоит аналитика?</h3></div>
+                <div class="col s9 shop">
+                    <div class="shop-item">
+                        <div>
+                            <h5>Базовый пакет</h5>
+                            <h5 class="item-header"></h5>
+                        </div>
+                        <a class="waves-effect waves-light btn white blue-text" style="font-size: 14px !important; width: 100%; border: 1px solid #057baa;">Попробовать бесплатно</a>
+                    </div>
+                    <div class="shop-item">
+                        <div>
+                            <h5>Стандартный пакет</h5>
+                            <h5 class="item-header"></h5>
+                        </div>
+                        <a class="waves-effect waves-light btn blue" style="font-size: 14px !important; width: 100%;">Перейти на стандарт</a>
+                    </div>
+                    <div class="shop-item">
+                        <div>
+                            <h5>Пакет VIP</h5>
+                            <h5 class="item-header"></h5>
+                        </div>
+                        <a class="waves-effect waves-light btn" style="font-size: 14px !important; width: 100%;">Перейти на VIP</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="partners" class="section scrollspy"></section>
+        <section id="contacts" class="section scrollspy">
+            <div class="company-info">
+                <h2 style="font-weight: 300 !important;">Контакты</h2>
+                <ul style="display: flex; flex-direction: column;">
+                    <li><i class="material-icons left">location_on</i>Челябинск, ул Лесопарковая, д. 5, к. 2 </li>
+                    <li><i class="material-icons left">access_time</i>Пн-Чт, Сб: 08:30 - 17:30 Пт: 08:30 - 16:00 Вс: Выходной </li>
+                    <li><i class="material-icons left">local_phone</i>+7 (909) 074-67-35</li>
+                    <li><i class="material-icons left">mail</i>info@tochka-kipeniya74.ru</li>
+                </ul>
+            </div>
+            <div id="map" style="height: 480px; width: 100%;"></div>
+        </section>
+    </main>
+    <footer class="page-footer"  style="background-color: #425761;">
+        <div class="container" style="display: flex; justify-content: space-around; align-items: center; padding-bottom: 20px;">
+            <a class="grey-text text-lighten-4" href="#" >Личный кабинет</a>
+            <a class="grey-text text-lighten-4" href="#" >Блог</a>
+            <a class="grey-text text-lighten-4" href="#" >Контакты</a>
+            <a class="grey-text text-lighten-4" href="#" >Вопросы/ответы</a>
+        </div>
+        <div class="footer-copyright">
+            <div class="container" >
+                © 2021 Точка Кипения
+                <a class="grey-text text-lighten-4 right" href="https://vk.com/antikamel" >Артемьев Д.В.</a>
+                <a class="grey-text text-lighten-4 right" href="https://vk.com/kvorange" style="margin-right: 40px;">Воронкин К.В.</a>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="static/js/mainpage.js"></script>
+</body>
+
+</html>
