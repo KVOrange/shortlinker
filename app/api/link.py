@@ -1,3 +1,5 @@
+"""Модуль запросов, связанных с ссылками."""
+
 from datetime import datetime
 from typing import Optional
 
@@ -8,18 +10,20 @@ from pydantic import BaseModel, HttpUrl, validator
 from app.database import db
 from app.enums.link_types import LinkTypes
 from app.handlers.json_handler import get_response
-from app.models import FullLink, ShortLink, LinkStatistic
+from app.models import FullLink, ShortLink
 
 module = Blueprint('link', __name__, url_prefix='/api/link')
 
 
 class LinkUpdateData(BaseModel):
+    """Класс валидатор для данных запроса обновления информации о ссылке"""
     name: Optional[str] = None
     type: Optional[int] = 0
     description: Optional[str] = None
 
     @validator('name', always=True)
     def check_name(cls, name):
+        """Фунция проверки допустимости имени ссылки"""
         if name:
             if len(name) > 30:
                 raise ValueError('Слишком большое название ссылки.')
@@ -30,16 +34,19 @@ class LinkUpdateData(BaseModel):
 
     @validator('type', always=True)
     def check_type(cls, type):
+        """Функция проверки корректности типа ссылки"""
         if type not in LinkTypes.all_link_types():
             raise ValueError('Указан неккоректный тип ссылки.')
         return type
 
 
 class LinkCreateData(LinkUpdateData):
+    """Класс валидатор данных запроса создания ссылки"""
     url: HttpUrl
 
 
 class LinkStatisticData(BaseModel):
+    """Класс валидатор данных запроса выдачи статистики ссылки"""
     name: str
     datetime_start: datetime
     datetime_end: datetime
@@ -48,6 +55,11 @@ class LinkStatisticData(BaseModel):
 @module.route('/<string:link_name>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 @jwt_required(optional=True)
 def link(link_name):
+    """Функция обработки стандартных запросов связанных с ссылками.
+
+    :param link_name: имя ссылки.
+    :return: Ответ сервера.
+    """
     if request.method == 'GET':
         short_link = ShortLink.query.filter_by(name=link_name).first()
         if not short_link:
@@ -118,6 +130,10 @@ def link(link_name):
 @module.route('/info/statistic', methods=['POST'])
 @jwt_required()
 def link_statistic():
+    """Функция выдачи статистики ссылки за определенный период времени.
+
+    :return: Ответ сервера.
+    """
     try:
         req_data = LinkStatisticData.parse_raw(request.data)
     except ValueError as error:
@@ -125,9 +141,5 @@ def link_statistic():
     short_link = ShortLink.query.filter_by(name=req_data.name, user=current_user).first()
     if not short_link:
         return get_response(400, False, 'Ссылка не найдена')
-    statistics = db.session.query(LinkStatistic).filter(
-        LinkStatistic.short_link_id == short_link.id,
-        LinkStatistic.date.between(req_data.datetime_start, req_data.datetime_end)
-    )
-    info = [{'date': stat.date.strftime("%d.%m.%Y %H:%M:%S")} for stat in statistics]
+    info = short_link.get_statistic(req_data.datetime_start, req_data.datetime_end)
     return get_response(200, False, '', info=info)

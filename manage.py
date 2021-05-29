@@ -1,3 +1,5 @@
+"""Модуль сборщик (менеджер) проекта."""
+
 from flask_script import Manager
 
 import config

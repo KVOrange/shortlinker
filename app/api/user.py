@@ -1,3 +1,5 @@
+"""Модуль запросов, связанных с пользователями системы."""
+
 from typing import Optional
 
 from flask import Blueprint, request
@@ -12,12 +14,14 @@ module = Blueprint('user_req', __name__, url_prefix='/api/user')
 
 
 class UserUpdateData(BaseModel):
+    """Класс валидатор данных запроса обновления информации о пользователе."""
     name: Optional[str] = None
     surname: Optional[str] = None
     email: Optional[EmailStr] = None
 
 
 class ChangePasswordData(BaseModel):
+    """Класс валидатор данных запроса смены пароля у пользователя."""
     old_password: str
     new_password: constr(min_length=8)
 
@@ -25,6 +29,10 @@ class ChangePasswordData(BaseModel):
 @module.route('/', methods=['GET', 'PUT'])
 @jwt_required()
 def user_req():
+    """Функция обработки стандартных запросов связанных с пользователями.
+
+    :return: Ответ сервера.
+    """
     if request.method == 'GET':
         resp_data = {
             'login': current_user.login,
@@ -52,6 +60,10 @@ def user_req():
 @module.route('/change_password', methods=['POST'])
 @jwt_required()
 def change_password():
+    """Функция обработки запроса смены пароля.
+
+    :return: Ответ сервера.
+    """
     try:
         req_data = ChangePasswordData.parse_raw(request.data)
     except ValueError as error:

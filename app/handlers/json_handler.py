@@ -1,3 +1,5 @@
+"""Моудль вспомогательных функций работы с JSON."""
+
 import json
 
 from flask import Response
