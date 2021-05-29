@@ -1,0 +1,164 @@
+body{
+    width: 100vw;
+    margin: 0;
+    overflow-x: hidden;
+}
+header{
+    width: 100%;
+    background-color: white;
+    height: 6vh;
+}
+section{
+    padding: 0 !important;
+}
+#main a{
+    color: white !important;
+    border-bottom:1px solid white;
+}
+#main a:hover{
+    border-bottom:0;
+}
+#main{
+    background-color: #3f535c;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10vh 0 !important;
+    position: relative;
+}
+.main_contain{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+}
+.linkcut, .linkresult{
+    width: 100%;
+    display: flex;
+}
+.link_container{
+    width: 90%;
+    max-width: 90% !important;
+    border-radius: 10px 0 0 10px;
+    padding: 18px;
+    font-size: 16px;
+}
+.link_cut{
+    background-color: #057baa !important;
+    line-height: 59px !important;
+    height: 59px !important;
+    border-radius: 0 10px 10px 0 !important;
+}
+.linkresult{
+    flex-direction: column;
+}
+.link_resulter, .link_result_error{
+    width: 100%;
+    max-width: 880px !important;
+    padding: 18px;
+    border-radius: 10px;
+    font-size: 16px;
+    display: none;
+    margin-bottom: 20px;
+    background-color: #35474f;
+    position: relative;
+}
+.link_result_error{
+    text-align:center;
+    background-color:#e2a4a4;
+    font-weight: 600;
+    color: #425761;
+}
+.design_cube{
+    background-color: #057baa;
+    position: absolute;
+    transform: rotate(45deg);
+    z-index: 0;
+}
+#contacts{
+    position: relative;
+}
+.company-info{
+    padding: 15px;
+    width: 352px;
+    border-radius: 10px;
+    position: absolute;
+    top: 44px;
+    left: 214px;
+    z-index: 999;
+    background: white;
+    box-shadow: 5px 5px 26px 0px rgba(0, 0, 0, 0.15);
+}
+.company-info ul li{
+    margin: 10px;
+}
+.number_icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #057baa;
+}
+#subdescription{
+    padding: 25px !important;
+    background-color: #057baa;
+}
+.col{
+    padding: 0 3.75rem !important;
+}
+.shop{
+    display: flex;
+}
+.shop-item{
+    margin: 2.75rem 5px ;
+    padding: 20px;
+    width: 33%;
+    border-radius: 20px;
+    box-shadow: 5px 5px 26px 0px rgba(0, 0, 0, 0.15);
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.item-header{
+    border-bottom: 1px solid #35474f;
+}
+.background-slide{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    display: none;
+    z-index: 9999;
+}
+.container-lk{
+    position: fixed;
+    height: 100%;
+    width: 20%;
+    background-color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+.copy_btn{
+    position: absolute;
+    right: -2%;
+    top: 20%;
+}
+#optional-settings{
+    margin: 2% 0;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+#optional-settings.flex{
+    display: flex;
+}
