@@ -6,10 +6,13 @@ $('form.linkcut').submit(function () {
     $('.link_result_error').fadeIn();
   }
   else{
-    fetch('/l/link/default_create', {
+    fetch('/api/link/add', {
       method: "POST",
       body: JSON.stringify({
-        url: result
+        url: result,
+        name: $('#short_name').val(),
+        type: $("input[name='group1']:checked").val(),
+        description: $('#description').val()
       })
     }).then(function (response) {
       return response.json()
@@ -19,7 +22,7 @@ $('form.linkcut').submit(function () {
           `
                   <div class="white-text row link_resulter"
                   ><div class='col s6 truncate'>
-                  `+ data.link + `
+                  <a href="/api/link/`+data.link_name+`">/api/link/`+data.link_name+`</a>
                   </div>
                   <div class='col s4' style='display:flex; padding: 0 !important; justify-content: space-between;'>
                     <span class='truncate' style="color:#057baa;">`+ $('.link_container').val() + `</span>
