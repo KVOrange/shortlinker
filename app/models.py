@@ -50,7 +50,7 @@ class ShortLink(db.Model):
     name = db.Column(
         db.String(30),
         unique=True,
-        default=hash_generator(),
+        default=hash_generator,
     )
     description = db.Column(db.String(1000), default=None, nullable=True)
     type = db.Column(db.SMALLINT, default=0)

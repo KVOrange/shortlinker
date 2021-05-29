@@ -3,12 +3,14 @@ from flask_jwt_extended import JWTManager
 
 import config
 from .models import db, User
-
+front_app = None
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(config.Config)
-
+    
+    global front_app
+    front_app = app
     jwt = JWTManager(app)
 
     @jwt.user_lookup_loader

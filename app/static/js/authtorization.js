@@ -1,7 +1,10 @@
 
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}
 $('form.reg_user').submit(function () {
-    console.log('Попытка пошла')
-    fetch('/auth/registration', {
+    eraseCookie('JWT')
+    fetch('/api/auth/registration', {
         method: "POST",
         body: JSON.stringify({
             login: $('#login_reg').val(),
@@ -15,6 +18,7 @@ $('form.reg_user').submit(function () {
     }).then(function (data) {
         if(data.success){
             alert('Регистрация прошла успешно!')
+            document.cookie = "JWT=Bearer "+data.token+"; path=/;"
             window.location.href = '/'
         }else{
             alert(data.error)
@@ -22,8 +26,8 @@ $('form.reg_user').submit(function () {
     })
 })
 $('form.auth_user').submit(function () {
-    console.log('Попытка пошла')
-    fetch('/auth/login', {
+    eraseCookie('JWT')
+    fetch('/api/auth/login', {
         method: "POST",
         body: JSON.stringify({
             login: $('#login').val(),
@@ -34,9 +38,15 @@ $('form.auth_user').submit(function () {
     }).then(function (data) {
         if(data.success){
             alert('Авторизация прошла успешно!')
+            document.cookie = "JWT=Bearer "+data.token+"; path=/;"
             window.location.href = '/'
         }else{
             alert(data.error)
         }
     })
+})
+$('.exit').on('click',function(){
+    console.log('Выход')
+    eraseCookie('JWT')
+    window.location.href='/'
 })

@@ -80,6 +80,7 @@ def link(link_name):
             name=req_data.name,
             description=req_data.description,
         )
+        print(short_link)
         return get_response(200, True, '', link_name=short_link.name)
 
     if request.method == 'PUT':
@@ -102,6 +103,7 @@ def link(link_name):
         return get_response(200, True, '')
 
     if request.method == 'DELETE':
+        print(link_name)
         if not current_user:
             return get_response(401, False, 'UNAUTHORIZED')
         short_link = ShortLink.query.filter_by(name=link_name, user=current_user).first()

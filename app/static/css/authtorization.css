@@ -5,6 +5,10 @@ body{
     margin: 0;
     overflow-x: hidden;
 }
+input::placeholder{
+    color: black;
+    font-weight: 600;
+} 
 .auth{
 display: flex;
 flex-direction: column;

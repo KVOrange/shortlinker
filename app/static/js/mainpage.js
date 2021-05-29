@@ -1,3 +1,13 @@
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
 $('form.linkcut').submit(function () {
   let result = $('.link_container').val()
   if(!result){
@@ -8,6 +18,9 @@ $('form.linkcut').submit(function () {
   else{
     fetch('/api/link/add', {
       method: "POST",
+      headers: new Headers({
+        'Authorization': getCookie('JWT')
+      }), 
       body: JSON.stringify({
         url: result,
         name: $('#short_name').val(),
@@ -18,11 +31,12 @@ $('form.linkcut').submit(function () {
       return response.json()
     }).then(function (data) {
       if (data.success) {
+        console.log(window.location.protocol+'//'+window.location.host)
         $('.linkresult').append(
           `
                   <div class="white-text row link_resulter"
                   ><div class='col s6 truncate'>
-                  <a href="/api/link/`+data.link_name+`">/api/link/`+data.link_name+`</a>
+                  <a href="/l/link/`+data.link_name+`">`+window.location.protocol+'//'+window.location.host+`/l/`+data.link_name+`</a>
                   </div>
                   <div class='col s4' style='display:flex; padding: 0 !important; justify-content: space-between;'>
                     <span class='truncate' style="color:#057baa;">`+ $('.link_container').val() + `</span>
@@ -45,12 +59,20 @@ $('form.linkcut').submit(function () {
 
 })
 $('.open-lk').on('click', function () {
-  $('.background-slide').toggle();
-  $('.container-lk').animate({ width: 'toggle' }, 350);
-  $('.container-lk').css('display', 'flex')
-})
-$('.background-slide').on('click', function () {
-  $('.background-slide').toggle();
-  $('.container-lk').animate({ width: 'toggle' }, 350);
+  console.log(getCookie('JWT'))
+  if(getCookie('JWT')){
+    window.location.href = '/lk'
+  }else{
+    $('.background-slide').toggle();
+    $('.container-lk').animate({ width: 'toggle' }, 350);
+    $('.container-lk').css('display', 'flex')
+  }
+  $('.background-slide').on('click', function () {
+    $('.background-slide').toggle();
+    $('.container-lk').animate({ width: 'toggle' }, 350);
+  }
+  )
+  
+  
   // $('.background-slide').toggle();animate({width:'toggle'}, 350);
 })

@@ -32,6 +32,7 @@
                     <li><a style="color: #425761" href="#price">Цены</a></li>
                     <li><a style="color: #425761" href="#contacts">Контакты</a></li>
                     <li><a class="waves-effect waves-light btn open-lk">Личный кабинет</a></li>
+                    <li><a class="waves-effect waves-light btn exit">Выход</a></li>
                 </ul>
         </nav>
     </header>
@@ -45,7 +46,7 @@
                     <div class="col s2 push-s1 link_desc">
                         <h6 style="text-align: center;">Тип ссылки</h6>
                     </div>
-                    <div class="col s2 push-s1 link_desc">
+                    <div class="col s1 push-s1 link_desc">
                         <h6 style="text-align: center;">Количество переходов</h6>
                     </div>
                 </div>
@@ -58,26 +59,31 @@
                             style="background-color: orange; border-radius: 50%;"
                             class="material-icons update_info">cached</i></div>
                     <div class="col s3 ">
-                        <h5>https://Shortlink </h5>
-                        <h6 class="truncate">ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                        <h5><a href="/l/{{link.serv_name}}">{{server_root}}/l/{{link.serv_name}}</a></h5>
+                        <h6 class="truncate">{{link.url}}
                         </h6>
                     </div>
                     <div class="col s2 link_col">
-                        <h6 style="text-align: center;">Type link</h6>
-                    </div>
-                    <div class="col s2 link_col">
-                        <h6 style="text-align: center;">123456</h6>
+                        {%if link.type == 0%}
+                        <h6 style="text-align: center;">Публичная</h6>
+                        {%elif link.type == 1%}
+                        <h6 style="text-align: center;">Общая</h6>
+                        {%else%}
+                        <h6 style="text-align: center;">Приватная</h6>
+                        {%endif%}                    </div>
+                    <div class="col s1 link_col">
+                        <h6 style="text-align: center;">{{link.click_count}}</h6>
                     </div>
                     <div class="col s2 link_col" style="float: right; display: flex; justify-content: center; align-items: center;">
-                        <a id="{{link}}" class="btn-floating btn-large waves-effect waves-light white open_info"><i
+                        <a id="{{link.serv_name}}" class="btn-floating btn-large waves-effect waves-light white open_info"><i
                                 class="material-icons black-text">keyboard_arrow_down</i></a>
                     </div>
                 </div>
-                <div id="{{link}}" class="link_fullinfo">
+                <div id="{{link.serv_name}}" class="link_fullinfo">
                     <div class="row">
                         <div class="col s5" style="display: flex; flex-direction: column;">
-                            <input class="col s12" placeholder="Placeholder" type="text" id="short_name">
-                            <input class="col s12" placeholder="Placeholder" type="text" id="description">
+                            <input class="col s12" placeholder="{{link.serv_name}}" type="text" id="short_name">
+                            <input class="col s12" placeholder="{{link.description}}" type="text" id="description">
                             <div class="link_type">
                                 <p>
                                   <label>
@@ -100,12 +106,13 @@
                                 
                             </div>
                             <div class="row" style="justify-content: flex-end;">
-                                <a class="waves-effect waves-light btn red delete_link">Удалить</a>
-                                <a class="waves-effect waves-light btn update_link">Сохранить</a>
+                                <a id={{link.serv_name}} class="waves-effect waves-light btn red delete_link">Удалить</a>
+                                <a id={{link.serv_name}} class="waves-effect waves-light btn update_link">Сохранить</a>
                             </div>
                         </div>
-                        <div class="col s6">
-                            <canvas class="visual_data" id = "chart-{{link}}"></canvas>
+                        <div class="col s6" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <span>Статистика по дате: <input type="date" style="width: 30%;"></span>
+                            <canvas class="visual_data" id = "chart_{{link.serv_name}}"></canvas>
                         </div>
                         </div>
                         
@@ -120,6 +127,7 @@
 
     </div>
     </main>
+    <script type="text/javascript" src="static/js/authtorization.js"></script>
     <script type="text/javascript" src="static/js/cabinet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 </body>

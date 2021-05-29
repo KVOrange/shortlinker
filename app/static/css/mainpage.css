@@ -1,3 +1,16 @@
+input.link_container::placeholder{
+    color: black;
+    font-weight: 600;
+    
+} 
+input.col::placeholder{
+    color: white;
+    font-weight: 600;
+    padding: 0 5% !important;
+} 
+span{
+    color: white;
+}
 body{
     width: 100vw;
     margin: 0;
