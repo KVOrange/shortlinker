@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_jwt_extended import current_user, jwt_required
-from pydantic import BaseModel
+from pydantic import BaseModel, constr
 from pydantic.networks import EmailStr
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -13,7 +13,7 @@ module = Blueprint('auth', __name__, url_prefix='/api/auth')
 class RegData(BaseModel):
     """Класс валидатор входных данных для запроса регистрации"""
     login: str
-    password: str
+    password: constr(min_length=8)
     name: str
     surname: str
     email: EmailStr
