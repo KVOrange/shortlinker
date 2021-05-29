@@ -260,7 +260,7 @@ paths:
     post:
       tags:
         - Link requests
-      summary: Создать новую сокращенную ссылку.
+      summary: Получить статистику ссылки за определенный период.
       parameters:
         - name: Authorization
           in: header
@@ -311,3 +311,185 @@ paths:
                         date:
                           type: string
                           example: "01.01.2010 00:00:00"
+  
+  /api/user:
+    get:
+      tags:
+        - User requests
+      summary: Получить информацию о текущем пользователе.
+      parameters:
+        - name: Authorization
+          in: header
+          schema: 
+            type: string
+          required: true
+          description: JWT токен пользователя.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+                  login:
+                    type: string
+                    description: Логин пользователя.
+                    example: "user_login"
+                  email:
+                    type: string
+                    description: Почта пользователя.
+                    example: "user@mail.ru"
+                  name:
+                    type: string
+                    description: Имя пользователя.
+                    example: "Name"
+                  surname:
+                    type: string
+                    description: Фамилия пользователя.
+                    example: "Surname"
+    put:
+      tags:
+        - User requests
+      summary: Обновить информацию о пользователе.
+      parameters:
+        - name: Authorization
+          in: header
+          schema: 
+            type: string
+          required: true
+          description: JWT токен пользователя.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Новое имя пользователя. Опционально.
+                  example: "NewName"
+                email:
+                    type: string
+                    description: Новая почта пользователя.
+                    example: "user@mail.ru"
+                surname:
+                    type: string
+                    description: Новоя фамилия пользователя.
+                    example: "NewSurname"   
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+
+  /api/user/change_password:
+    post:
+      tags:
+        - User requests
+      summary: Изменить пароль пользователя.
+      parameters:
+        - name: Authorization
+          in: header
+          schema: 
+            type: string
+          required: true
+          description: JWT токен пользователя.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                  description: Старый пароль пользователя.
+                  example: "oldpassword"
+                new_password:
+                    type: string
+                    description: Новый пароль.
+                    example: "newpassword"   
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""           
+  
+  /api/user/link:
+    get:
+      tags:
+        - User requests
+      summary: Получить информацию о всех ссылках пользователя.
+      parameters:
+        - name: Authorization
+          in: header
+          schema: 
+            type: string
+          required: true
+          description: JWT токен пользователя.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Выполнен ли доступ к запросу.
+                    example: true
+                  error:
+                    type: string
+                    description: Текст ошибки.
+                    example: ""
+                  serv_name:
+                    type: string
+                    description: Серверное имя ссылки.
+                    example: "link_name"
+                  url:
+                    type: string
+                    description: Полный адрес изначальной ссылки.
+                    example: "https://www.google.ru"
+                  description:
+                    type: string
+                    description: Кастомное описание.
+                    example: "Name"
+                  type:
+                    type: integer
+                    description: Тип ссылки.
+                    example: 1
+                  click_count:
+                    type: string
+                    description: Количество переходов по ссылке.
+                    example: 20
