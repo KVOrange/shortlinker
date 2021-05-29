@@ -311,6 +311,9 @@ paths:
                         date:
                           type: string
                           example: "01.01.2010 00:00:00"
+                        count:
+                          type: integer
+                          example: 10
   
   /api/user:
     get:

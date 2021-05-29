@@ -142,4 +142,4 @@ def link_statistic():
     if not short_link:
         return get_response(400, False, 'Ссылка не найдена')
     info = short_link.get_statistic(req_data.datetime_start, req_data.datetime_end)
-    return get_response(200, False, '', info=info)
+    return get_response(200, True, '', info=info)
